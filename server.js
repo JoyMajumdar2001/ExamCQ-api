@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 });
 
 app.post('/create', function (req, res) {
-    res.send(req.body)
+    res.send(req.body.data)
   })
 
 const PORT = process.env.PORT || 8080;
