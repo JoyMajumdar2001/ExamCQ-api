@@ -27,10 +27,10 @@ const examSchema = new Schema({
   modified: String,
   responses: Number,
 });
-var ExamModelSch = mongoose.model('Exams', examSchema);
+var ExamModelSch = mongoose.model("Exams", examSchema);
+const ExamModel = new ExamModelSch();
 
 function inserMongo(req) {
-    const ExamModel = new ExamModelSch();
   ExamModel.name = req.body.name;
   ExamModel.uid = req.body.uid;
   ExamModel.created = req.body.created;
@@ -40,13 +40,33 @@ function inserMongo(req) {
   ExamModel.save();
 }
 
+async function getAll(res) {
+    const all = await ExamModelSch.find();
+    res.json(all);
+}
+
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to ExamCQ server." });
 });
 
+app.get("/examdata/:qid", (req, res) => {
+  ExamModelSch.findOne({ uid: req.params.qid }, function (err, docs) {
+    if (err) {
+      res.json({ message: "Error" });
+    } else {
+      console.log("Result : ", docs);
+      res.json(docs);
+    }
+  });
+});
+
+app.get("/getallexam", (req, res) => {
+  getAll(res)
+});
+
 app.post("/create", function (req, res) {
-    inserMongo(req);
+  inserMongo(req);
   res.json({ message: "Added" });
 });
 
