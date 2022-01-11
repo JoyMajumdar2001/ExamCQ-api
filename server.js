@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
+bodyParser = require('body-parser');
+
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -11,7 +13,7 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true })); 
 
 mongoose.connect('mongodb+srv://node:uHmZFkQzbjAWwNIM@clusterdrop.r9rmv.mongodb.net/examcq?retryWrites=true&w=majority');
@@ -32,7 +34,7 @@ app.get("/", (req, res) => {
 });
 
 app.post('/create', function (req, res) {
-    res.send(req.body.data)
+    res.send(req.body)
   })
 
 const PORT = process.env.PORT || 8080;
