@@ -9,7 +9,7 @@ var Schema = mongoose.Schema;
 const app = express();
 
 var corsOptions = {
-  origin: "https://determined-mahavira-6be689.netlify.app",
+  origin: ["https://examcq.onrender.com","https://determined-mahavira-6be689.netlify.app","http://localhost:3000"],
 };
 
 app.use(cors(corsOptions));
